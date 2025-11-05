@@ -1,0 +1,59 @@
+# 1. Dependências e Logs (O MAIS IMPORTANTE)
+# Ignora node_modules EM QUALQUER LUGAR (raiz, frontend/, backend/, etc.)
+node_modules/
+
+# Ignora logs, pids e arquivos de diagnóstico
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# 2. Arquivos de Build e Cobertura
+# Ignora pastas de "saída" de build e testes
+dist/
+build/
+coverage/
+.nyc_output/
+
+# 3. Arquivos de Ambiente
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 4. Arquivos Temporários e de Cache
+.tmp/
+.temp/
+*.cache
+*.tmp
+
+# 5. Sistema Operacional (macOS, Windows)
+.DS_Store
+Thumbs.db
+
+# 6. IDEs e Editores
+# JetBrains (WebStorm, etc.)
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VSCode (permitindo configurações compartilhadas)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

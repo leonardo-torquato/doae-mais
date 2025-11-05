@@ -1,0 +1,42 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { DonationCategoriesModule } from './donation_categories/donation_categories.module';
+import { NeedsModule } from './needs/needs.module';
+import { DonationsModule } from './donations/donations.module';
+
+@Module({
+  imports: [
+    
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST || 'localhost', // 'localhost'
+      port: parseInt(process.env.DB_PORT, 10) || 5432,
+      username: process.env.DB_USERNAME || 'postgres', 
+      password: process.env.DB_PASSWORD || '123', 
+      database: process.env.DB_NAME || 'doacoes_db',
+      
+      // Entidades serão adicionadas aqui
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      
+      // Sincroniza o schema do DB (apenas para desenvolvimento!)
+      // Isso cria as tabelas automaticamente.
+      synchronize: true, 
+    }),
+
+    UsersModule,
+
+    DonationCategoriesModule,
+
+    NeedsModule,
+
+    DonationsModule, 
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
