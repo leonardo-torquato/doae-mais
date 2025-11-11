@@ -1,7 +1,7 @@
 // backend/src/donations/entities/donation.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { DonationCategory } from '../../donation_categories/entities/category.entity.ts';
-import { Need } from '../../needs/entities/need.entity.ts';
+import { DonationCategory } from '../../donation_categories/entities/category.entity';
+import { Need } from '../../needs/entities/need.entity';
 
 // Enum para o status da doação
 export enum DonationStatus {

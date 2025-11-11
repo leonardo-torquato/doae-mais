@@ -15,10 +15,10 @@ import { DonationsModule } from './donations/donations.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost', // 'localhost'
-      port: parseInt(process.env.DB_PORT, 10) || 5432,
+      port: parseInt(process.env.DB_PORT ||  '5432', 10),
       username: process.env.DB_USERNAME || 'postgres', 
       password: process.env.DB_PASSWORD || '123', 
-      database: process.env.DB_NAME || 'doacoes_db',
+      database: process.env.DB_NAME || 'postgres',
       
       // Entidades serão adicionadas aqui
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
