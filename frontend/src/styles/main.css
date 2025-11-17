@@ -1,39 +1,40 @@
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  background: #0b0f14;
+  color: #e8eef8;
 }
 
 header {
-    background: #4CAF50;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
+  background: #4caf50;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
 }
 
 nav {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
 }
 
 nav a:hover {
-    background: #45a049;
+  background: #45a049;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
 }
 
 .footer {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
   text-align: center;
   padding: 10px 0;
@@ -43,49 +44,501 @@ nav a:hover {
   width: 100%;
 }
 
-
 .card {
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-    padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 20px;
 }
 
 .button {
-    display: inline-block;
-    font-size: 16px;
-    color: white;
-    background: #4CAF50;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  color: white;
+  background: #4caf50;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .button:hover {
-    background: #45a049;
+  background: #45a049;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .form-group input,
 .form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 @media (max-width: 768px) {
-    .container {
-        width: 95%;
+  .container {
+    width: 95%;
+  }
+}
+
+/* ===================================================== */
+/* ========== ESTILOS RESPONSIVOS DA HOMEPAGE ========== */
+/* ===================================================== */
+
+:root {
+  --home-bg: #0b0f14;
+  --home-card: #111722;
+  --home-ink: #e8eef8;
+  --home-muted: #a8b3c7;
+  --home-primary: #6ee7b7;
+  --home-outline: #223048;
+  --home-radius: 16px;
+}
+
+/* Wrapper principal */
+.home-wrapper {
+  color: var(--home-ink);
+  background: linear-gradient(180deg, #0a0d12, #0d1420 60%, #0a0d12);
+  padding: 24px;
+  min-height: 100vh;
+}
+
+/* HERO */
+.home-hero {
+  display: grid;
+  gap: 16px;
+  background:
+    radial-gradient(70% 100% at 10% 0%, #101a28, transparent 60%),
+    radial-gradient(60% 90% at 90% 0%, #0e2a22, transparent 60%);
+  border: 1px solid var(--home-outline);
+  border-radius: var(--home-radius);
+  padding: 20px;
+  margin-top: 0;
+  padding-top: 16px;
+}
+
+.home-hero-title {
+  margin: 0;
+  font-size: clamp(24px, 4.5vw, 40px);
+  line-height: 1.1;
+}
+
+.home-hero-sub {
+  color: var(--home-muted);
+  margin-top: 8px;
+}
+
+.home-hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.home-hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.home-qr-caption {
+  font-size: 12px;
+  color: var(--home-muted);
+}
+
+/* Cards e botões da Home */
+.home-card {
+  background: var(--home-card);
+  border: 1px solid var(--home-outline);
+  border-radius: var(--home-radius);
+  padding: 16px;
+}
+
+.home-card-value {
+  font-size: 24px;
+  font-weight: 700;
+}
+.home-card-label {
+  color: var(--home-muted);
+  margin-top: 4px;
+}
+.home-card-sub {
+  font-size: 12px;
+  color: var(--home-muted);
+  margin-top: 6px;
+}
+
+.button--ghost {
+  background: transparent !important;
+  color: #fff !important;
+  border: 1px solid var(--home-outline) !important;
+}
+
+/* GRID de estatísticas */
+.home-stats {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+/* Barra de progresso */
+.home-progress {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.home-progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #1b2433;
+  border: 1px solid #25324a;
+}
+
+.home-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--home-primary), #94f7cd);
+}
+
+.home-progress-text {
+  font-size: 12px;
+  color: var(--home-muted);
+}
+
+/* Gráficos */
+.home-charts {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.home-chart {
+  background: #101724;
+  border: 1px solid var(--home-outline);
+  border-radius: var(--home-radius);
+  padding: 12px;
+}
+
+.home-section-title {
+  margin: 0 0 10px 0;
+}
+.home-chart-box {
+  height: 260px;
+}
+
+/* Campanhas */
+.home-campaigns {
+  margin-top: 16px;
+}
+
+.home-campaign-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.home-campaign-card {
+  background: #101724;
+  border: 1px solid var(--home-outline);
+  border-radius: var(--home-radius);
+  padding: 16px;
+}
+
+.home-campaign-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-chip {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #0f1623;
+  border: 1px solid #2b3a58;
+  color: #b9c6da;
+}
+
+.home-campaign-desc {
+  color: var(--home-muted);
+}
+.home-campaign-progress {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.home-campaign-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Como doar */
+.home-howto {
+  margin-top: 16px;
+}
+
+.home-howto-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.home-howto-card {
+  background: var(--home-card);
+  border: 1px solid var(--home-outline);
+  border-radius: var(--home-radius);
+  padding: 16px;
+}
+
+/* Sobre */
+.home-about {
+  margin-top: 16px;
+}
+
+.home-about-card {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  background: #101724;
+  border: 1px solid var(--home-outline);
+  border-radius: var(--home-radius);
+  padding: 12px;
+}
+
+.home-about-card img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 220px;
+}
+
+.home-about-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* Breakpoints */
+@media (min-width: 768px) {
+  .home-wrapper {
+    padding: 32px;
+  }
+  .home-hero {
+    padding: 28px;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+  }
+  .home-hero-right {
+    align-items: flex-end;
+  }
+  .home-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .home-charts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-campaign-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-howto-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .home-about-card {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-chart-box {
+    height: 300px;
+  }
+  .home-wrapper {
+    padding: 40px 32px;
+  }
+  /* ========================================== */
+  /* ========== GRÁFICO DE NECESSIDADES ======= */
+  /* ========================================== */
+
+  .needs-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: linear-gradient(145deg, #101724, #0b111a);
+    border: 1px solid var(--home-outline);
+    border-radius: var(--home-radius);
+    padding: 32px;
+    max-width: 900px;
+    margin: 40px auto;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .needs-section h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--home-ink);
+  }
+
+  .needs-chart-container {
+    width: 100%;
+    max-width: 700px;
+    height: 380px; /* altura fixa para manter o gráfico proporcional */
+    background: #0f1623;
+    border-radius: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid var(--home-outline);
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .needs-section {
+      padding: 20px;
+      margin: 20px;
     }
+    .needs-chart-container {
+      max-width: 100%;
+      height: 320px;
+      padding: 16px;
+    }
+    /* ========================================== */
+    /* ========== ÁREA DA IGREJA (ADMIN) ========= */
+    /* ========================================== */
+
+    .admin-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(145deg, #0b0f14, #0d1420);
+      border-radius: var(--home-radius);
+      padding: 60px 24px;
+      color: var(--home-ink);
+      min-height: calc(100vh - 120px);
+    }
+
+    .admin-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--home-ink);
+    }
+
+    .admin-subtitle {
+      color: var(--home-muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* ==== conteúdo principal ==== */
+    .admin-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      width: 100%;
+    }
+
+    /* ==== gráfico ==== */
+    .admin-chart-card {
+      background: transparent;
+      border: none;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .admin-chart-card h3 {
+      color: #e8eef8;
+      margin-bottom: 16px;
+    }
+
+    .admin-chart-box {
+      height: 360px;
+      background: #101724;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--home-outline);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ==== qr code ==== */
+    .admin-qr-card {
+      background: #101724;
+      border: 1px solid var(--home-outline);
+      border-radius: var(--home-radius);
+      padding: 24px;
+      width: 100%;
+      max-width: 400px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-qr-card h3 {
+      color: #e8eef8;
+      margin-bottom: 10px;
+    }
+
+    .admin-text {
+      color: #e8eef8;
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    .admin-qr-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .admin-bar {
+      width: 60%;
+      height: 6px;
+      background: var(--home-primary);
+      border-radius: 999px;
+      margin: 12px auto 12px;
+    }
+
+    .admin-link {
+      color: #a8b3c7;
+      font-size: 0.8rem;
+    }
+
+    .admin-chart-box {
+      height: 300px;
+    }
+
+    .admin-section {
+      padding: 40px 12px;
+    }
+  }
 }
