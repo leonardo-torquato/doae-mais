@@ -34,5 +34,5 @@ export class Donation {
 
   // Relação: Muitas Doações podem ser para UMA Necessidade (opcional)
   @ManyToOne(() => Need, need => need.donations, { nullable: true }) // nullable = true
-  need: Need;
+  need: Need | null;
 }

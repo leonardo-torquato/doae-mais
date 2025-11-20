@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { DonationCategoriesModule } from './donation_categories/donation_categories.module';
 import { NeedsModule } from './needs/needs.module';
 import { DonationsModule } from './donations/donations.module';
+import { AuthModule } from './auth/auth.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -34,7 +36,11 @@ import { DonationsModule } from './donations/donations.module';
 
     NeedsModule,
 
-    DonationsModule, 
+    DonationsModule,
+
+    AuthModule,
+
+    DashboardModule, 
   ],
   controllers: [],
   providers: [],

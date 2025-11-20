@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Donation } from './entities/donation.entity';
+import { Donation, DonationStatus } from './entities/donation.entity';
 import { DonationCategory } from '../donation_categories/entities/category.entity';
 import { Need } from '../needs/entities/need.entity';
 import { CreateDonationDto } from './dto/create-donation.dto';
+import { UpdateDonationStatusDto } from './dto/update-donation-status.dto';
 
 @Injectable()
 export class DonationsService {
@@ -38,15 +39,35 @@ export class DonationsService {
       }
     }
 
-    // 3. Cria a nova doação
-    const newDonation = this.donationRepository.create({
+    // 3. Cria a nova doação usando repository.create para garantir tipagem correta
+    const donation = this.donationRepository.create({
       description,
-      category: category,
-      need: need, // Será null se needId não for fornecido
-      status: 'pendente', //
+      category,
+      need: need ?? null,
+      status: DonationStatus.PENDING,
     });
 
     // 4. Salva no banco
-    return this.donationRepository.save(newDonation);
+    return this.donationRepository.save(donation);
+  }
+
+  findAll(): Promise<Donation[]> {
+    return this.donationRepository.find({
+      relations: ['category', 'need'], // Traz os objetos completos de Categoria e Need
+      order: { createdAt: 'DESC' },
+    });
+  }
+
+  async updateStatus(id: string, updateStatusDto: UpdateDonationStatusDto): Promise<Donation> {
+    const donation = await this.donationRepository.findOneBy({ id });
+    if (!donation) {
+      throw new NotFoundException(`Doação com ID ${id} não encontrada.`);
+    }
+
+    donation.status = updateStatusDto.status;
+    
+    //TODO: Se a doação for vinculada a uma 'Need' e o status mudar para COLLECTED, futuramente poderemos somar no 'raised' da Need aqui.
+    
+    return this.donationRepository.save(donation);
   }
 }
