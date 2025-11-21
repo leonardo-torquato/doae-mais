@@ -7,6 +7,7 @@ import { NeedsModule } from './needs/needs.module';
 import { DonationsModule } from './donations/donations.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -40,7 +41,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
 
     AuthModule,
 
-    DashboardModule, 
+    DashboardModule,
+    
+    PaymentModule,
   ],
   controllers: [],
   providers: [],
