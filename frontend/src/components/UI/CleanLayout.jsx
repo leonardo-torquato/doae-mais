@@ -6,7 +6,13 @@ const CleanLayout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <main style={{ marginTop: "80px", position: "relative", zIndex: 1 }}>
+      <main
+        style={{
+          marginTop: 0, // 🔥 removido o espaço extra
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         {children}
       </main>
       <Footer />
