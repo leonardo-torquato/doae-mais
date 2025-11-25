@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
+import { DataContext } from "../../context/DataContext";
 import { QRCodeCanvas } from "qrcode.react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import {
@@ -10,7 +11,6 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
-import { mockNeeds, mockDonationsData } from "../../constants";
 
 ChartJS.register(
   ArcElement,
@@ -42,29 +42,24 @@ const ProgressBar = ({ current, total }) => {
 };
 
 export default function Homepage() {
-  // KPIs mockados (poderão vir do backend depois)
-  const familiasMes = 74;
-  const quilosAcumulado = 1280;
-  const metaCestas = { current: 124, total: 200 };
+  
+  // 1. Consumir o contexto
+  const { needs, publicStats, donationsData } = useContext(DataContext);
 
-  // Charts
-  const doughnutData = useMemo(() => {
-    return {
-      labels: mockDonationsData.labels,
-      datasets: [
-        {
-          data: mockDonationsData.data,
-          backgroundColor: ["#6ee7b7", "#93c5fd", "#fca5a5", "#fcd34d"],
-          borderWidth: 0,
-        },
-      ],
-    };
-  }, []);
+  // 2. Mapear os dados do backend para a visualização
+  // O backend retorna { totalDonations, totalRaised }
+  
+  // TODO: Vamos usar totalDonations como "Famílias atendidas" (ou crie uma lógica para isso)
+  const familiasMes = publicStats.totalDonations; 
+  
+  // TODO: totalRaised é o valor em R$. Se quiser quilos, precisaria de lógica no back.
+  // Por enquanto, vamos formatar como Valor Arrecadado para testar.
+  const valorArrecadado = publicStats.totalRaised; 
 
   const needsBarData = useMemo(() => {
-    const labels = mockNeeds.map((n) => n.title);
-    const current = mockNeeds.map((n) => n.raised);
-    const total = mockNeeds.map((n) => n.goal);
+    const labels = needs.map((n) => n.title);
+    const current = needs.map((n) => n.raised);
+    const total = needs.map((n) => n.goal);
     return {
       labels,
       datasets: [
@@ -82,13 +77,8 @@ export default function Homepage() {
         },
       ],
     };
-  }, []);
-
-  const doughnutOptions = {
-    plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } },
-    maintainAspectRatio: false,
-  };
-
+  }, [needs]);
+  
   const barOptions = {
     plugins: { legend: { position: "bottom" } },
     responsive: true,
@@ -97,6 +87,28 @@ export default function Homepage() {
       x: { stacked: true, ticks: { maxRotation: 0, minRotation: 0 } },
       y: { stacked: false, beginAtZero: true },
     },
+  };
+
+const doughnutData = useMemo(() => {
+    // Verifica se existem dados, senão usa array vazio para não quebrar
+    const labels = donationsData?.labels || [];
+    const data = donationsData?.data || [];
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          data: data,
+          backgroundColor: ["#6ee7b7", "#93c5fd", "#fca5a5", "#fcd34d"],
+          borderWidth: 0,
+        },
+      ],
+    };
+  }, [donationsData]);
+
+  const doughnutOptions = {
+    plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } } },
+    maintainAspectRatio: false,
   };
 
   return (
@@ -135,23 +147,23 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* STATS */}
+      {/* STATS DINÂMICOS */}
       <section className="home-stats">
         <StatCard
-          label="Famílias atendidas (mês)"
+          label="Doações Recebidas" // Mudado o label para refletir o dado real
           value={familiasMes}
-          sub="+12 esta semana"
+          sub="Total registrado no sistema"
         />
         <StatCard
-          label="Quilos arrecadados (2025)"
-          value={`${quilosAcumulado} kg`}
+          label="Total Arrecadado (R$)" // Mudado para refletir o dado real
+          value={`R$ ${valorArrecadado}`}
         />
-        <div className="home-card">
+        {/* Mantenha o card de meta de cestas estático por enquanto ou calcule via needs */}
+         <div className="home-card">
           <div className="home-card-value">
-            {metaCestas.current}/{metaCestas.total}
+            ...
           </div>
-          <div className="home-card-label">Meta de cestas do mês</div>
-          <ProgressBar current={metaCestas.current} total={metaCestas.total} />
+          ...
         </div>
       </section>
 
@@ -171,11 +183,12 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* CAMPANHAS ATIVAS */}
+      {/* CAMPANHAS ATIVAS DINÂMICAS */}
       <section className="home-campaigns">
         <h3 className="home-section-title">Campanhas ativas</h3>
         <div className="home-campaign-grid">
-          {mockNeeds.map((n) => (
+          {/* Agora faz map no 'needs' vindo do banco de dados, e não no mockNeeds */}
+          {needs.length === 0 ? <p>Nenhuma campanha ativa no momento.</p> : needs.map((n) => (
             <article key={n.id} className="home-campaign-card">
               <div className="home-campaign-head">
                 <h4>{n.title}</h4>

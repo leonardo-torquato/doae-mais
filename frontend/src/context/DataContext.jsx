@@ -1,37 +1,48 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { mockNeeds, mockDonationsData } from '../constants';
+import api from '../services/api'; // Importamos o serviço que acabamos de criar
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+  // Estados para armazenar dados vindos do Backend
   const [needs, setNeeds] = useState([]);
-  const [donationsData, setDonationsData] = useState({ labels: [], data: [] });
+  const [publicStats, setPublicStats] = useState({ totalDonations: 0, totalRaised: 0 });
+  const [donationsData, setDonationsData] = useState({ labels: [], data: [] }); // Para o gráfico admin
 
+  // Função para buscar dados públicos (Home e Needs)
+  const refreshPublicData = async () => {
+    try {
+      // Busca as necessidades (NeedsController)
+      const needsResponse = await api.get('/needs');
+      setNeeds(needsResponse.data);
+
+      // Busca resumo do dashboard (DashboardController)
+      const statsResponse = await api.get('/dashboard/public-summary');
+      setPublicStats(statsResponse.data);
+
+    } catch (error) {
+      console.error("Erro ao buscar dados públicos:", error);
+    }
+  };
+
+  // Carrega os dados assim que o App abre
   useEffect(() => {
-    // No futuro, isso será: fetch('/api/needs').then(...)
-    setNeeds(mockNeeds);
-    
-    // No futuro, isso será: fetch('/api/donations/summary').then(...)
-    setDonationsData(mockDonationsData);
+    refreshPublicData();
   }, []);
 
-  // 4. Função para adicionar doação (pronta para o backend)
-  const addDonation = (donation) => {
-    // donation será o objeto: { tipo, descricao, needId }
-    console.log('Enviando para API:', donation);
-    
-    // No futuro, aqui teremos a lógica de POST:
-    // fetch('/api/donations', { method: 'POST', body: JSON.stringify(donation) })
-    //   .then(...)
-    
-    // Por enquanto, apenas exibimos o alerta e (no futuro) o modal.
+  // Função placeholder para adicionar doação (será implementada na Fase 2)
+  const addDonation = async (donation) => {
+     console.log('Fase 2: Implementar POST /donations', donation);
+     //TODO: Aqui faremos api.post(...) futuramente
   };
 
   return (
     <DataContext.Provider value={{
       needs,
-      donationsData,
-      addDonation
+      publicStats,
+      donationsData, // Usado no AdminDashboard (ainda mockado por enquanto ou vazio)
+      addDonation,
+      refreshPublicData
     }}>
       {children}
     </DataContext.Provider>

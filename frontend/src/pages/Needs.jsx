@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react"; 
+import { DataContext } from "../context/DataContext";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { mockNeeds } from "../constants";
 
 ChartJS.register(
   CategoryScale,
@@ -21,14 +21,19 @@ ChartJS.register(
 );
 
 export default function Needs() {
-  const chartData = useMemo(() => {
-    const labels = mockNeeds.map((n) => n.title);
-    const values = mockNeeds.map((n) => n.goal - n.raised);
+
+  const { needs } = useContext(DataContext);
+
+const chartData = useMemo(() => {
+
+    const labels = needs.map((n) => n.title);
+    const values = needs.map((n) => n.goal - n.raised); // Quanto falta
+    
     return {
       labels,
       datasets: [
         {
-          label: "Quantidade necessária (unidades)",
+          label: "Quantidade faltante para a meta",
           data: values,
           backgroundColor: "#6ee7b7",
           borderRadius: 8,
@@ -36,7 +41,7 @@ export default function Needs() {
         },
       ],
     };
-  }, []);
+  }, [needs]);
 
   const options = {
     responsive: true,
