@@ -18,13 +18,12 @@ const Login = () => {
 
     try {
       await login(email, password);
-      history.push("/admin"); // Redireciona para Admin após sucesso
+      history.push("/admin"); // Redireciona e desmonta o componente
     } catch (err) {
       console.error(err);
       setError(true);
-    } finally {
-      setIsLoggingIn(false);
-    }
+      setIsLoggingIn(false); // Só paramos o loading se der erro e continuarmos na tela
+    } 
   };
 
   // Estilos inline para o formulário Dark
